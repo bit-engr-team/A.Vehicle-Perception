@@ -1,3 +1,3 @@
-#ÖMER'S PLACE
+ÖMER'S PLACE
 
 What's up beauties
