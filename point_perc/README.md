@@ -1,5 +1,8 @@
 # Sensor Fusion Based Object Tracking
 
+ŞU ANDA LIVE MODE YOK, YANİ DİREKT ROS'TAN GELEN VERİYİ DİNLEYEMİYOR, SADECE DOSYA OKUYOR
+
+
 This project performs **real-time object tracking and classification** by fusing data from **Camera**, **LiDAR**, and **IMU** sensors.  
 It detects objects with **YOLOv5**, tracks them using an **Unscented Kalman Filter (UKF)**, and classifies them as **Dynamic** or **Static** based on their motion.
 
