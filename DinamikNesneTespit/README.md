@@ -1,5 +1,5 @@
-
-# 🚗 Sensor Fusion ile Hareketli Nesne Takibi
+## LİVE MODE EKSİK (TAMAMLANMADI)
+ # 🚗 Sensor Fusion ile Hareketli Nesne Takibi
 
 Bu proje, LiDAR, IMU ve kamera verilerini birleştirerek gerçek zamanlı nesne tespiti, takip ve hareketli/statik ayrımı yapan bir sistem sunar. YOLOv5 modeli ile görsel nesne tespiti, Kalman Filtresi ile konum ve hız takibi, ve IMU ivmesi ile bağıl hareket analizi birleştirilmiştir.
 
