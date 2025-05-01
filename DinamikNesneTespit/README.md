@@ -124,20 +124,8 @@ project_root/
 - Statik sınıflar listesi `STATIC_CLASSES` içinde tanımlıdır. Gerekirse genişletilebilir.
 - IMU verisi eksik karelerde takip yapılmaz.
 - YOLO tahmini ile zemin nesneleri (örneğin trafik ışığı, bank, duvar) varsayılan olarak “Statik” kabul edilir.
-- İvme verisi filtrelenmemiştir. Daha hassas analiz için Kalman ya da düşük geçiren filtre eklenebilir.
+- İvme verisi filtrelenmemiştir. Daha hassas analiz için Kalman ya da düşük geçiren filtre eklenebilir. (?)
 
 ---
 
-## ✨ Geliştirme Fikirleri
 
-- Kamera-LiDAR kalibrasyonu ile daha hassas projeksiyon
-- IMU/GNSS verisiyle global konum haritalama
-- Hız, ivme filtreleme ve eğik yüzeylerde hareket analizi
-- Otomatik ground-truth üretimi ve doğruluk metriği hesaplama
-
----
-
-## 🧑‍💻 Yazar
-
-**[Ad Soyadınızı Buraya Yazabilirsiniz]**  
-Lütfen kaynak göstererek kullanınız.
