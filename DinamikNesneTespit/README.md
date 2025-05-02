@@ -1,3 +1,6 @@
+#LİVE MODE DÜZENLENECEK
+
+
 # Dinamik Nesne Takip Sistemi
 
 Bu proje, LiDAR, IMU ve kamera verilerini kullanarak otonom sürüş senaryolarında dinamik (hareketli) ve statik nesneleri tespit eden bir takip sistemidir. Python ve OpenCV, Open3D, PyTorch (YOLOv5), Kalman Filtresi gibi araçlarla geliştirilmiştir.
