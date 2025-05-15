@@ -1,0 +1,30 @@
+# config/data.yaml
+
+# 1) Eğitim, doğrulama ve test görüntü klasörleri
+#    scripts/train.py içinden çalıştığında:
+#    - scripts/ → bir seviye yukarı → proje kökü
+#    - oradan dataset klasörüne iniyor
+train: ../dataset/train/images
+val:   ../dataset/valid/images
+test:  ../dataset/test/images
+
+# 2) Sınıf sayısı
+nc: 15
+
+# 3) Sınıf isimleri (0’dan 14’e sıralı)
+names:
+  0: ada_etrafinda_donunuz
+  1: durak
+  2: girisi_olmayan_yol
+  3: ileri_mecburi
+  4: ileri_ve_saga_mecburi
+  5: ileri_ve_sola_mecburi
+  6: isikli_isaret_cihazi
+  7: kirmizi_isik
+  8: park_yasak
+  9: park_yeri
+  10: saga_donulmez
+  11: sagdan_gidiniz
+  12: sola_donulmez
+  13: yaya_gecidi
+  14: yesil_isik
