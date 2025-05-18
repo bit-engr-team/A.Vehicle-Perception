@@ -57,8 +57,8 @@ def get_lane_points(ll_seg_mask, min_area=100):
             x = points[:, 0]
             y = points[:, 1]
             try:
-                # Fit a second-degree polynomial (quadratic curve)
-                poly_coeffs = np.polyfit(y, x, 2)
+                
+                poly_coeffs = np.polyfit(y, x, 10)
                 poly_func = np.poly1d(poly_coeffs)
 
                 # Generate a smooth line of points along the curve
