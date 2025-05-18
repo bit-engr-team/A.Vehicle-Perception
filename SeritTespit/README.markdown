@@ -1,6 +1,11 @@
 # SeritTespit.py - Real-Time Image Processing for Autonomous Driving
 
 ## Overview
+Kısa özet:
+# SOURCE ARGÜMANIYLA ALDIĞI FOLDERA EKLENEN YENİ FOTOĞRAFLARI İŞLİYOR SONUÇLARI runs/exp/detections.jsona CANLI OLARAK YAZIYOR
+# KABUL ETTİĞİ GÖRÜNTÜNÜN DIMENSIONINA GÖRE OLAN AYAR SIKINTILI!!! DÜZELTİLECEK
+# ŞUANLIK ESCAPE BASINCA FOLDER'I İZLEMEYİ BIRAKIYOR
+
 `SeritTespit.py` is a Python script designed for real-time perception tasks in autonomous driving. It uses the YOLOPv2 model to perform:
 - **Object Detection**: Identifies objects (e.g., cars, pedestrians, trucks) with bounding boxes and confidence scores.
 - **Lane Line Detection**: Detects and smooths lane lines, computing centerlines.
