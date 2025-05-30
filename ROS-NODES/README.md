@@ -9,6 +9,8 @@
 Since Derda hasn't provided the yolov11 weights, you can use a pretrained traffic sign detection weight file for yolov4 provided in the link below:
 https://github.com/fredotran/traffic-sign-detector-yolov4/releases/download/weights/yolov4-rds_best_2000.weights
 
+NOT: .weights dosyası olduğu içi çalışmıyor. .pt dosyasına dönüştürülmeli.
+
 ## Subscribed Topic
 - **`/carla/camera`** (`sensor_msgs/msg/Image`):
   - The node receives RGB images from this topic for processing.
