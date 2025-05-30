@@ -51,7 +51,7 @@ class ImageProcessingNode(Node):
         self.lane_pub = self.create_publisher(String, '/perception/lane', 10)
         self.sign_pub = self.create_publisher(String, '/perception/traffic_signs', 10)
         # Load YOLO model for traffic sign detection
-        self.yolo_model = YOLO('data/weights/yolov11.pt')  # Adjust path as needed
+        self.yolo_model = YOLO('data/weights/yolov11.pt')  # Derda yolov11.pt weight dosyasını ekleyecek. Şimdilik başka bir weight dosyası kullanılabilir.
         # Load Lane Detection Model (YOLOPv2 TorchScript)
         self.lane_model = torch.jit.load('data/weights/yolopv2.pt', map_location='cpu')
         self.lane_model.eval()
