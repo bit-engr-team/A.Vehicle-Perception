@@ -1,3 +1,7 @@
+ dynamicdetection2 
+ ---livemode.py ( live mod )
+ --- dynamicdetection2.py (ror kullanılan yeni versiyon)
+
 
 ---
 
