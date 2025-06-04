@@ -178,7 +178,8 @@ def transform_lane_coordinates(lane_lines):
             x, y = point
             # Negate y value and add 640
             transformed_y = -y + 640
-            transformed_line.append([x, transformed_y])
+            transformed_x = x - 640  # Adjust x coordinate to center around 0
+            transformed_line.append([transformed_x, transformed_y])
         transformed_lines.append(np.array(transformed_line))
     return transformed_lines
 
