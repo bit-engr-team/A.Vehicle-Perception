@@ -12,6 +12,8 @@ import cv2
 import numpy as np
 import torch
 import torchvision
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
 
 logger = logging.getLogger(__name__)
 
@@ -519,3 +521,120 @@ def lane_line_mask(ll = None):
     ll_seg_mask = torch.round(ll_seg_mask).squeeze(1)
     ll_seg_mask = ll_seg_mask.int().squeeze().cpu().numpy()
     return ll_seg_mask
+
+class LoadImagesRealTime:
+    """Real-time folder watcher for image processing"""
+    def __init__(self, path, img_size=640, stride=32, supported_formats=None):
+        self.path = Path(path).absolute()
+        self.img_size = img_size
+        self.stride = stride
+        self.processed_files = set()
+        
+        if supported_formats is None:
+            self.supported_formats = ['bmp', 'jpg', 'jpeg', 'png', 'tif', 'tiff', 'dng', 'webp', 'mpo']
+        else:
+            self.supported_formats = supported_formats
+            
+        # Ensure the watch directory exists
+        self.path.mkdir(parents=True, exist_ok=True)
+        
+        # Track existing files to avoid processing them on startup
+        self._scan_existing_files()
+        
+    def _scan_existing_files(self):
+        """Scan existing files to avoid processing them when starting"""
+        if self.path.exists():
+            for file_path in self.path.glob('*.*'):
+                if file_path.suffix.lower().lstrip('.') in self.supported_formats:
+                    self.processed_files.add(str(file_path))
+                    
+    def _is_supported_image(self, file_path):
+        """Check if file is a supported image format"""
+        return Path(file_path).suffix.lower().lstrip('.') in self.supported_formats
+    
+    def _process_image(self, file_path):
+        """Process a single image file"""
+        try:
+            # Read image
+            img0 = cv2.imread(str(file_path))
+            if img0 is None:
+                print(f"Warning: Could not read image {file_path}")
+                return None
+                 
+            # Resize and preprocess
+            img0 = cv2.resize(img0, (1280, 720), interpolation=cv2.INTER_LINEAR)
+            img = letterbox(img0, self.img_size, stride=self.stride)[0]
+            
+            # Convert
+            img = img[:, :, ::-1].transpose(2, 0, 1)  # BGR to RGB, to 3x416x416
+            img = np.ascontiguousarray(img)
+            
+            return str(file_path), img, img0, None
+             
+        except Exception as e:
+            print(f"Error processing image {file_path}: {e}")
+            return None
+    
+    def get_new_images(self):
+        """Generator that yields new images as they appear in the folder"""
+        class ImageHandler(FileSystemEventHandler):
+            def __init__(self, loader):
+                self.loader = loader
+                self.new_files = []
+                
+            def on_created(self, event):
+                if not event.is_directory:
+                    file_path = event.src_path
+                    if (self.loader._is_supported_image(file_path) and 
+                        file_path not in self.loader.processed_files):
+                        # Wait a moment to ensure file is fully written
+                        time.sleep(0.1)
+                        self.new_files.append(file_path)
+                        
+            def on_moved(self, event):
+                if not event.is_directory:
+                    file_path = event.dest_path
+                    if (self.loader._is_supported_image(file_path) and 
+                        file_path not in self.loader.processed_files):
+                        time.sleep(0.1)
+                        self.new_files.append(file_path)
+        
+        handler = ImageHandler(self)
+        observer = Observer()
+        observer.schedule(handler, str(self.path), recursive=False)
+        observer.start()
+        
+        print(f"Watching folder: {self.path}")
+        print("Waiting for new images...")
+        
+        try:
+            while True:
+                if handler.new_files:
+                    file_path = handler.new_files.pop(0)
+                    
+                    # Verify file still exists and is complete
+                    if os.path.exists(file_path):
+                        try:
+                            # Check if file is still being written (size check)
+                            initial_size = os.path.getsize(file_path)
+                            time.sleep(0.1)
+                            final_size = os.path.getsize(file_path)
+                            
+                            if initial_size == final_size:  # File is complete
+                                result = self._process_image(file_path)
+                                if result:
+                                    self.processed_files.add(file_path)
+                                    yield result
+                            else:
+                                # File still being written, put it back in queue
+                                handler.new_files.append(file_path)
+                        except Exception as e:
+                            print(f"Error checking file {file_path}: {e}")
+                
+                time.sleep(0.1)  # Small delay to prevent high CPU usage
+                 
+        except KeyboardInterrupt:
+            print("Stopping folder watcher...")
+        finally:
+            observer.stop()
+            observer.join()
