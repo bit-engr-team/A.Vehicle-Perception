@@ -32,9 +32,9 @@ LIDAR_DYNAMIC_DIST_THRESHOLD = 0.2
 LIDAR_CLUSTER_TRACK_DIST = 2.0
 
 # ---------------------- Test Modu Varsayılan Path’ler ----------------------
-IMU_CSV_PATH = r"D:\bit\data\exp27\sensor_abs_data.csv"
-LIDAR_FOLDER = r"D:\bit\data\exp27\lidar"
-CAMERA_FOLDER = r"D:\bit\data\exp27\camera"
+IMU_CSV_PATH = "input_data/exp27/sensor_abs_data.csv"
+LIDAR_FOLDER = "input_data/exp27/lidar"
+CAMERA_FOLDER = "input_data/exp27/camera"
 OUTPUT_CSV = "output/test_tracking_output.csv"
 OUTPUT_JSON = "output/test_tracking_output.json"
 
