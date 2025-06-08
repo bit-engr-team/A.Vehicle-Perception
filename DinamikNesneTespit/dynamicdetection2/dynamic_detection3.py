@@ -50,7 +50,7 @@ class LidarImuDynamicDetector(Node):
     def __init__(self):
         super().__init__('lidar_imu_dynamic_detector')
         self.sub_lidar = self.create_subscription(PointCloud2, "/carla/lidar", self.lidar_callback, 10)
-        self.sub_imu = self.create_subscription(Imu, "/imu/data", self.imu_callback, 10)
+        self.sub_imu = self.create_subscription(Imu, "/carla/imu", self.imu_callback, 10)
         self.pub = self.create_publisher(Image, "/dynamic_objects_image", 10)
         self.prev_points = None
         self.tracks = {}
@@ -176,11 +176,11 @@ class LidarImuDynamicDetector(Node):
         ax.scatter(0, 0, c='red', marker='x', label='Merkez (0,0)')
         # Dinamik noktaları (ham) çiz
         if dynamic_points.shape[0] > 0:
-            ax.scatter(dynamic_points[:, 0], dynamic_points[:, 1], c='lime', s=5, alpha=0.5, label='Dinamik Noktalar')
+            ax.scatter(dynamic_points[:, 0], dynamic_points[:, 1], c='blue', s=5, alpha=0.5, label='Dinamik Noktalar')
         # Dinamik küme merkezlerini çiz
         if dynamic_positions:
             dynamic_positions = np.array(dynamic_positions)
-            ax.scatter(dynamic_positions[:, 0], dynamic_positions[:, 1], c='blue', label='Dinamik Küme Merkezleri')
+            ax.scatter(dynamic_positions[:, 0], dynamic_positions[:, 1], c='black', label='Dinamik Küme Merkezleri')
         ax.set_xlabel('X')
         ax.set_ylabel('Y')
         ax.set_title('Dinamik Nesneler')
