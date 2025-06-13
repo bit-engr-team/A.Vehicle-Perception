@@ -1,6 +1,6 @@
 # democarlavv.py (Server - ZMQ and no-vis by default)
 # REPSOCKET KULLANARAK INPUT ALIYOR
-# TERMİNALE HER SUBPROCESSİN SÜRESİNİ YAZIYOR
+# TERMİNALE ŞERİT TESPİTN HER SUBPROCESSİNİN SÜRESİNİ YAZIYOR
 import argparse
 from pathlib import Path
 import torch
